@@ -1,24 +1,27 @@
 const table = document.getElementById("game-table");
+let gameMatrix = [];
 
 function createTable() {
-    const gameMatrix = [];
-    let count = 0;
-
     for(let i = 0; i < 3; i++) {
-        gameMatrix[i] = [];
         const tableRow = document.createElement("tr");
-        tableRow.classList.add("row-id-" + i);
-        
+        tableRow.setAttribute("id", "row-id-" + i);
+        gameMatrix[i] = [];
+
         for(let j = 0; j < 3; j++) {
             const tableCell = document.createElement("td");
-            tableCell.classList.add("cell-id-" + count);
+            tableCell.setAttribute("id", "cell-id-" + i + j);
+
             gameMatrix[i].push(false);
+
+            const cellValue = document.createTextNode(gameMatrix[i][j]);
+            tableCell.appendChild(cellValue);
             tableRow.appendChild(tableCell);
-            count++;
         }
         table.appendChild(tableRow);
     }
-    return console.log(gameMatrix);
+    return gameMatrix;
 }
+console.log(gameMatrix);
 
-createTable();
+
+console.log(createTable())
