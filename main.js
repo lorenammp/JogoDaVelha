@@ -1,27 +1,85 @@
 const table = document.getElementById("game-table");
-let gameMatrix = [];
+let gameArr = [];
+let availableCells = [];
+let cellValue = 1;
 
-function createTable() {
-    for(let i = 0; i < 3; i++) {
-        const tableRow = document.createElement("tr");
-        tableRow.setAttribute("id", "row-id-" + i);
-        gameMatrix[i] = [];
 
-        for(let j = 0; j < 3; j++) {
-            const tableCell = document.createElement("td");
-            tableCell.setAttribute("id", "cell-id-" + i + j);
+for(let i = 0; i < 3; i++) {
+    const tableRow = document.createElement("tr");
+    tableRow.setAttribute("id", "row-id-" + i);
 
-            gameMatrix[i].push(false);
+    for(let j = 0; j < 3; j++) {
+        const tableCell = document.createElement("td");
+        tableCell.setAttribute("id", "cell-id-" + cellValue);
 
-            const cellValue = document.createTextNode(gameMatrix[i][j]);
-            tableCell.appendChild(cellValue);
-            tableRow.appendChild(tableCell);
-        }
-        table.appendChild(tableRow);
+        gameArr.push(cellValue);
+
+        tableRow.appendChild(tableCell);
+        cellValue++;
     }
-    return gameMatrix;
+    table.appendChild(tableRow);
 }
-console.log(gameMatrix);
 
+let count = 0;
 
-console.log(createTable())
+let winner;
+
+while(winner == false) {
+
+}
+
+function selectRandom(arr) {
+    return arr[Math.floor((Math.random() * arr.length))];
+}
+
+function computerClick(id) {
+    document.getElementById(id).click();
+}
+
+function computerPlay(id) {
+    let clickId = 0;
+    for(let i = 0; i < 9; i++) {
+        if(Number.isInteger(gameArr[i])) {
+            if(id % 2 !== 0 ) {
+                for(let i = 0; i < 9; i++) {
+                    if(gameArr[i] % 2 !== 0 && Number.isInteger(gameArr[i])) {
+                        availableCells.push(gameArr[i]);
+                    }
+                }
+                console.log("Random: " + selectRandom(availableCells));
+            }
+            clickId = selectRandom(availableCells);
+            availableCells = [];
+            computerClick("cell-id-" + clickId);
+            break;
+        }
+    }
+    console.log("Slice arr: " + availableCells);
+    console.log("Id: " + id);
+}
+
+function makePlay(e) {
+    if(e.target.innerText == "") {
+        if(count % 2 === 0) {
+            e.target.innerText = "X";
+        }
+        else {
+            e.target.innerText = "O";
+        }
+        count++;
+
+        for(let i = 1; i <= 9; i++) {
+            if(e.target.id == "cell-id-" + i) {
+                gameArr[i-1] = e.target.innerText;
+                if(count % 2 !== 0)
+                    computerPlay(i);
+            }
+        }
+    }    
+    console.log("Click Count: " + count);
+}
+
+for(let i = 1; i <= 9; i++) {
+    const cellClick = document.getElementById("cell-id-" + i);
+    cellClick.addEventListener("click", makePlay);
+}
