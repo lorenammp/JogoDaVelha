@@ -3,7 +3,8 @@ const gameMatrix = [];
 let gameArr = [];
 let availableCells = [];
 let cellValue = 1;
-
+let count = 0;
+let winner = false;
 
 for(let i = 0; i < 3; i++) {
     const tableRow = document.createElement("tr");
@@ -21,14 +22,6 @@ for(let i = 0; i < 3; i++) {
     table.appendChild(tableRow);
 }
 
-let count = 0;
-
-let winner;
-
-while(winner == false) {
-
-}
-
 function selectRandom(arr) {
     return arr[Math.floor((Math.random() * arr.length))];
 }
@@ -40,15 +33,11 @@ function computerClick(id) {
 function computerPlay(id) {
     let clickId = 0;
 
-
     for(let i = 0; i < 9; i++) {
         if(gameArr[i] % 2 !== 0 && Number.isInteger(gameArr[i])) {
             availableCells.push(gameArr[i]);
         }
     }
-
-    console.log(availableCells.length);
-    console.log("Slice arr: " + availableCells);
 
     if(availableCells.length == 0) {
         for(let i = 0; i < 9; i++) {
@@ -57,14 +46,10 @@ function computerPlay(id) {
             }
         }
     }
-    console.log("Random: " + selectRandom(availableCells));
 
     clickId = selectRandom(availableCells);
     availableCells = [];
     computerClick("cell-id-" + clickId);
-
-
-    console.log("Id: " + id);
 }
 
 function arrToMatrix(arr, rowNum) {
@@ -80,8 +65,25 @@ function arrToMatrix(arr, rowNum) {
     return gameMatrix;
 }
 
-function winCheck() {
+const allEqual = arr => arr.every(v => v === arr[0])
 
+const arrayColumn = (arr, n) => arr.map(x => x[n]);
+
+function winCheck(matrix) {
+    let col;
+
+    for(let i = 0; i < 3; i++) {
+        if(allEqual(matrix[i])) {
+            winner = true;
+        }
+        if(allEqual(arrayColumn(matrix,i))) {
+            winner = true;
+        }
+    }
+
+    console.log(arrayColumn(matrix,0));
+    console.log(allEqual(matrix[0]));
+    return winner;
 }
 
 function makePlay(e) {
@@ -98,13 +100,18 @@ function makePlay(e) {
             if(e.target.id == "cell-id-" + i) {
                 gameArr[i-1] = e.target.innerText;
 
-                arrToMatrix(gameArr, 3);
-
-                if(count % 2 !== 0 && count < 8)
+                if(winCheck(arrToMatrix(gameArr, 3))) {
+                    for(let i = 1; i <= 9; i++) {
+                        const cellClick = document.getElementById("cell-id-" + i);
+                        cellClick.removeEventListener("click", makePlay);
+                    }
+                }
+                
+                else if(count % 2 !== 0 && count < 8)
                     computerPlay(i);
             }
         }
-        console.log(gameArr);
+        console.log("Gamearr: " + gameArr);
     }    
 }
 
