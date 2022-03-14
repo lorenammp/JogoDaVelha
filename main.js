@@ -81,8 +81,6 @@ function arrToMatrix(arr, rowNum) {
         }
         gameMatrix[k].push(arr[i]);
     }
-
-    console.table(gameMatrix);
     return gameMatrix;
 }
 
@@ -136,8 +134,6 @@ function winCheck(matrix) {
         }
     }
 
-    console.log(arrayColumn(matrix,0));
-    console.log(allEqual(matrix[0]));
     return winner;
 }
 
@@ -150,8 +146,7 @@ function makePlay(e) {
             e.target.innerText = "O";
         }
         count++;
-        console.log("Count: " + count);
-        console.log("Winner: " + winner);
+        
         for(let i = 1; i <= 9; i++) {
             if(e.target.id == "cell-id-" + i) {
                 gameArr[i-1] = e.target.innerText;
@@ -167,7 +162,6 @@ function makePlay(e) {
                     computerPlay(i);
             }
         }
-        console.log("Gamearr: " + gameArr);
     }    
 }
 
