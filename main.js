@@ -30,6 +30,27 @@ function computerClick(id) {
     document.getElementById(id).click();
 }
 
+function findTwos(matrix) {
+    let count = 0, countNum = 0;
+    let char;
+    for(let i = 0; i < matrix.length; i++) {
+        for(let j = 0; j < matrix[i].length; i++) {
+            if(Number.isInteger(matrix[i][j]) === false) {
+                if(char == matrix[i][j]) {
+                    count++;
+                }
+                char = matrix[i][j];
+            }
+            else {
+                countNum++;
+            }
+        }
+        count = 0;
+        countNum = 0;
+    }
+    
+}
+
 function computerPlay(id) {
     let clickId = 0;
 
@@ -69,14 +90,49 @@ const allEqual = arr => arr.every(v => v === arr[0])
 
 const arrayColumn = (arr, n) => arr.map(x => x[n]);
 
-function winCheck(matrix) {
-    let col;
+function getDiagonals(arr, n) {
+    const newArray = [];
+    if(n === 1) {
+        for(let i = 0; i < arr.length; i++) {
+            for(j = 0; j < arr[i].length; j++) {
+                if(i === j) {
+                    newArray.push(arr[i][j]);
+                } 
+            }
+        }
+    }
 
+    else {
+        for(let i = 0; i < arr.length; i++) {
+            for(j = 0; j < arr[i].length; j++) {
+                if(i === 0 && j === 2) {
+                    newArray.push(arr[i][j]);
+                }
+                else if(i === 1 && j === 1) {
+                    newArray.push(arr[i][j]);
+                }
+                else if(i === 2 && j === 0) {
+                    newArray.push(arr[i][j]);
+                }
+            }
+        }
+    }
+    console.log("Diagonal: " + newArray);
+    return newArray;
+}
+
+function winCheck(matrix) {
     for(let i = 0; i < 3; i++) {
         if(allEqual(matrix[i])) {
             winner = true;
         }
         if(allEqual(arrayColumn(matrix,i))) {
+            winner = true;
+        }
+        if(allEqual(getDiagonals(matrix, 1))) {
+            winner = true;
+        }
+        if(allEqual(getDiagonals(matrix, 2))) {
             winner = true;
         }
     }
@@ -95,7 +151,8 @@ function makePlay(e) {
             e.target.innerText = "O";
         }
         count++;
-
+        console.log("Count: " + count);
+        console.log("Winner: " + winner);
         for(let i = 1; i <= 9; i++) {
             if(e.target.id == "cell-id-" + i) {
                 gameArr[i-1] = e.target.innerText;
@@ -115,7 +172,27 @@ function makePlay(e) {
     }    
 }
 
+function resetBoard() {
+    gameArr = [];
+    count = 0;
+    winner = false;
+    
+    for(let i = 1; i <= 9; i++) {
+        const cellId = document.getElementById("cell-id-" + i);
+        cellId.innerText = "";
+        gameArr.push(i);
+    }
+
+    for(let i = 1; i <= 9; i++) {
+        const cellClick = document.getElementById("cell-id-" + i);
+        cellClick.addEventListener("click", makePlay);
+    }
+}
+
 for(let i = 1; i <= 9; i++) {
     const cellClick = document.getElementById("cell-id-" + i);
     cellClick.addEventListener("click", makePlay);
 }
+
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", resetBoard);
