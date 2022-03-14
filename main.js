@@ -117,7 +117,6 @@ function getDiagonals(arr, n) {
             }
         }
     }
-    console.log("Diagonal: " + newArray);
     return newArray;
 }
 
