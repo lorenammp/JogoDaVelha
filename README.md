@@ -1,3 +1,3 @@
 # JogoDaVelha
 
-Personal project of a Tic-tac-toe game, developed with vanilla JS.
+Personal project of a single-player Tic-tac-toe game, developed with vanilla JS.
