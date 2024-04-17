@@ -1,55 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 body {
-    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%); 
-    background-attachment: fixed;
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+  background-attachment: fixed;
 }
 
 main {
-    width: 98vw;
+  width: 98vw;
 }
 
 h1 {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 50px;
-    color: pink;
-    text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 50px;
+  color: pink;
+  text-align: center;
 }
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 hr {
-    width: 100%;
-    visibility: hidden;
+  width: 100%;
+  visibility: hidden;
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 td {
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 500;
-    font-size: 100px;
-    color:#ffffff;
-    text-align: center;
-    width: 150px;
-    height: 150px;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  font-size: 100px;
+  color: #ffffff;
+  text-align: center;
+  width: 150px;
+  height: 150px;
 }
 
-tr:nth-child(-n+2) {
-    border-bottom: 10px solid pink;
+tr:nth-child(-n + 2) {
+  border-bottom: 10px solid pink;
 }
 
-td:nth-child(-n+2) {
-    border-right: 10px solid pink;
+td:nth-child(-n + 2) {
+  border-right: 10px solid pink;
 }
 
 button {
-    display: block;
+  display: block;
 }
